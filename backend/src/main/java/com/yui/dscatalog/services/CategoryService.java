@@ -70,7 +70,7 @@ public class CategoryService {
         try {
             categoryRepository.deleteById(id);
         }catch (DataIntegrityViolationException e ){
-            throw  new DatabaseExcpetion("Fail");
+            throw  new DatabaseExcpetion( "Fail");
         }
     }
 }

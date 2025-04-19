@@ -1,0 +1,6 @@
+ALTER TABLE tb_category
+ADD COLUMN created_at TIMESTAMP WITHOUT TIME ZONE,
+ADD COLUMN update_at TIMESTAMP WITHOUT TIME ZONE;
+
+UPDATE tb_category
+SET created_at = NOW();
