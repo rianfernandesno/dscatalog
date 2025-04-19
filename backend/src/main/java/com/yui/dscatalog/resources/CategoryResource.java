@@ -2,8 +2,10 @@ package com.yui.dscatalog.resources;
 
 import com.yui.dscatalog.dto.CategoryDTO;
 import com.yui.dscatalog.services.CategoryService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,8 +20,20 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> findAll(){
-        List<CategoryDTO> list = categoryService.findAll();
+    public ResponseEntity<Page<CategoryDTO>> findAll(
+            @RequestParam(value = "paage", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "ASC") String orderBy
+            ){
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                linesPerPage,
+                Sort.Direction.valueOf(direction),
+                orderBy);
+
+        Page<CategoryDTO> list = categoryService.findAllPaged(pageRequest);
+
         return  ResponseEntity.ok().body(list);
 
     }
