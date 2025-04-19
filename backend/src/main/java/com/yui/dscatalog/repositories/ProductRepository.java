@@ -1,9 +1,9 @@
 package com.yui.dscatalog.repositories;
 
-import com.yui.dscatalog.models.Category;
+import com.yui.dscatalog.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface ProductRepository  extends JpaRepository<Product, Long> {
 }
