@@ -2,6 +2,7 @@ package com.yui.dscatalog.resources;
 
 import com.yui.dscatalog.dto.CategoryDTO;
 import com.yui.dscatalog.services.CategoryService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,13 @@ public class CategoryResource {
 
         return ResponseEntity.ok().body(dto);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        categoryService.delete(id);
+
+        return  ResponseEntity.noContent().build();
     }
 
 }

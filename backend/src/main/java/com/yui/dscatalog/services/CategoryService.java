@@ -3,10 +3,13 @@ package com.yui.dscatalog.services;
 import com.yui.dscatalog.dto.CategoryDTO;
 import com.yui.dscatalog.models.Category;
 import com.yui.dscatalog.repositories.CategoryRepository;
+import com.yui.dscatalog.services.exceptions.DatabaseExcpetion;
 import com.yui.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -56,5 +59,18 @@ public class CategoryService {
             throw  new ResourceNotFoundException("Id not found " + id);
         }
 
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if(!categoryRepository.existsById(id)){
+            throw  new ResourceNotFoundException("Resource not found");
+        }
+
+        try {
+            categoryRepository.deleteById(id);
+        }catch (DataIntegrityViolationException e ){
+            throw  new DatabaseExcpetion("Fail");
+        }
     }
 }
