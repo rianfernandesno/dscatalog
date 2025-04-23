@@ -59,7 +59,7 @@ public class ProductService {
     public ProductDTO update(Long id, ProductDTO dto) {
 
         try {
-            Product entity = repository.getOne(id);
+            Product entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
 
