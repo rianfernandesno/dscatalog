@@ -2,6 +2,10 @@ package com.yui.dscatalog.dto;
 
 import com.yui.dscatalog.models.Category;
 import com.yui.dscatalog.models.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,11 +15,19 @@ import java.util.Set;
 public class ProductDTO {
 
     private Long id;
+
+    @Size(min = 3, max = 60, message = "Nome deve ter entre 3 a 60 caracteres")
+    @NotBlank(message = "Campo requerido")
     private String name;
+
+    @NotBlank(message = "Campo requerido")
     private String description;
+
+    @Positive(message = "Preço tem que ser positivo")
     private Double price;
     private String imgUrl;
 
+    @PastOrPresent(message = "A Data do produto não pode ser futura")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();

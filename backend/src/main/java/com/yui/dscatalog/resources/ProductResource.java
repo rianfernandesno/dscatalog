@@ -4,6 +4,7 @@ import com.yui.dscatalog.dto.CategoryDTO;
 import com.yui.dscatalog.dto.ProductDTO;
 import com.yui.dscatalog.services.CategoryService;
 import com.yui.dscatalog.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,7 +39,7 @@ public class ProductResource {
     }
 
     @PostMapping
-    public  ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){
+    public  ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){
         dto = productService.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -49,7 +50,7 @@ public class ProductResource {
     }
 
     @PutMapping("/{id}")
-    public  ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto){
+    public  ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto){
         dto = productService.update(id, dto);
 
         return ResponseEntity.ok().body(dto);
