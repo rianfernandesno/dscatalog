@@ -3,6 +3,7 @@ package com.yui.dscatalog.services;
 import com.yui.dscatalog.dto.RoleDTO;
 import com.yui.dscatalog.dto.UserDTO;
 import com.yui.dscatalog.dto.UserInsertDTO;
+import com.yui.dscatalog.dto.UserUpdateDTO;
 import com.yui.dscatalog.models.Role;
 import com.yui.dscatalog.models.User;
 import com.yui.dscatalog.repositories.RoleRepository;
@@ -63,7 +64,7 @@ public class UserService {
 
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
 
         try {
             User entity = repository.getReferenceById(id);
